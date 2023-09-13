@@ -1,4 +1,6 @@
 import Todoitem from './Todoitem'
+import Todonewitem from './Todonewitem';
+
 import { useState, useEffect } from 'react'
 function Todolist () {
     const [todos, setTodos] = useState(() => {
@@ -7,10 +9,9 @@ function Todolist () {
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
-    const addTodo = () => {
-        const newTodo = document.getElementById('newTodo').value
-        if (newTodo === '') return
-        const newTodos = [...todos, { id: todos.length + 1, label: newTodo, completed: false }] 
+    const addTodo = (val) => {
+        if (val === '') return
+        const newTodos = [...todos, { id: todos.length + 1, label: val, completed: false }] 
         setTodos(newTodos)
     }
     const toggleTaskCompleted = (id) => {
@@ -19,8 +20,7 @@ function Todolist () {
     };
     return (
         <>
-        <input id="newTodo" type="text" placeholder="Skriv in en sak att göra" />
-        <button onClick={() => { addTodo() }}>Lägg till</button>
+        <Todonewitem addTodo={addTodo} />
         <ul className="todo-list">
             { todos.map((todo, index) => 
                 <Todoitem 
