@@ -1,14 +1,32 @@
+import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
 import './App.css'
-import Todolist from './components/Todolist'
+import Todooverview from './pages/Todooverview';
+import Aboutpage from './pages/Aboutpage';
 
 function App() {
 
-  return (
-    <div className="container">
-        <h1>Vill du göra sak?</h1>
-        <Todolist />
-    </div>
-  )
+    // Extract navbar to component
+    return (
+        <div className='container'>
+            <BrowserRouter>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to='/'>Todo</Link>
+                        </li>
+                        <li>
+                            <Link to='/about'>About</Link>
+                        </li>
+                    </ul>
+                </nav>
+                <Routes>
+                    <Route path='/' element={<Todooverview />} />
+                    <Route path='/about' element={<Aboutpage />} />
+                </Routes>
+            </BrowserRouter>
+
+        </div>
+    )
 }
 
 export default App
